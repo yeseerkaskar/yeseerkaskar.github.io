@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Albert Kaskar — Data Analytics & AI</title>
+<meta name="description" content="Albert Kaskar — Master of IT student at UTAS specialising in Data Analytics and AI. Full-stack engineer, IEEE-published, based in Sydney." />
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --base:      #1e1e2e;
+    --mantle:    #181825;
+    --crust:     #11111b;
+    --surface:   #24243a;
+    --surface2:  #313244;
+    --line:      #3a3a52;
+    --text:      #cdd6f4;
+    --subtext:   #a6adc8;
+    --overlay:   #7f849c;
+    --mauve:     #cba6f7;
+    --teal:      #94e2d5;
+    --peach:     #fab387;
+
+    --display: "Bricolage Grotesque", system-ui, sans-serif;
+    --body: "Inter", system-ui, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, monospace;
+
+    --max: 1080px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--body);
+    background: var(--base);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  ::selection { background: var(--mauve); color: var(--crust); }
+
+  a { color: inherit; text-decoration: none; }
+
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 28px; }
+
+  /* mono eyebrow / path label */
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--mauve);
+    letter-spacing: 0.02em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-bottom: 1.4rem;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 26px; height: 1px;
+    background: var(--mauve);
+    opacity: 0.6;
+  }
+
+  /* ---------- NAV ---------- */
+  header.nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(24,24,37,0.72);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid transparent;
+    transition: border-color .3s;
+  }
+  header.nav.scrolled { border-bottom: 1px solid var(--line); }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .brand {
+    font-family: var(--mono);
+    font-weight: 600;
+    font-size: 0.92rem;
+    letter-spacing: -0.01em;
+  }
+  .brand span { color: var(--mauve); }
+  .nav-links { display: flex; gap: 1.6rem; }
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--subtext);
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-links a .p { color: var(--overlay); }
+  @media (max-width: 680px) { .nav-links { display: none; } }
+
+  /* ---------- HERO ---------- */
+  .hero { position: relative; padding: 92px 0 76px; }
+  .hero::before {
+    content: "";
+    position: absolute; top: -140px; left: 50%;
+    transform: translateX(-45%);
+    width: 760px; height: 620px;
+    background:
+      radial-gradient(closest-side, rgba(203,166,247,0.22), transparent 70%),
+      radial-gradient(closest-side, rgba(250,179,135,0.10), transparent 70%);
+    background-position: 30% 30%, 70% 60%;
+    background-size: 70% 70%, 60% 60%;
+    background-repeat: no-repeat;
+    filter: blur(8px);
+    z-index: -1;
+    pointer-events: none;
+  }
+  .hero h1 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(2.9rem, 8.5vw, 5.8rem);
+    line-height: 0.98;
+    letter-spacing: -0.03em;
+    max-width: 12ch;
+  }
+  .hero h1 .accent { color: var(--mauve); }
+  .hero .lede {
+    margin-top: 1.6rem;
+    font-size: clamp(1.05rem, 2.4vw, 1.32rem);
+    color: var(--subtext);
+    max-width: 46ch;
+  }
+  .hero .lede strong { color: var(--text); font-weight: 600; }
+
+  /* status bar */
+  .statusbar {
+    margin-top: 2.2rem;
+    display: flex; flex-wrap: wrap; gap: 0;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+    width: fit-content;
+    max-width: 100%;
+  }
+  .statusbar .cell {
+    padding: 0.5rem 0.95rem;
+    border-right: 1px solid var(--line);
+    color: var(--subtext);
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .statusbar .cell:last-child { border-right: none; }
+  .statusbar .cell b { color: var(--text); font-weight: 500; }
+  .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--teal);
+    box-shadow: 0 0 0 0 rgba(148,226,213,0.5);
+    animation: pulse 2.4s infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(148,226,213,0.5); }
+    70% { box-shadow: 0 0 0 7px rgba(148,226,213,0); }
+    100% { box-shadow: 0 0 0 0 rgba(148,226,213,0); }
+  }
+
+  .cta-row { margin-top: 2.4rem; display: flex; flex-wrap: wrap; gap: 0.8rem; align-items: center; }
+  .btn {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    padding: 0.72rem 1.25rem;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    transition: transform .15s, background .2s, border-color .2s, color .2s;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn.primary {
+    background: var(--mauve); color: var(--crust);
+    border-color: var(--mauve); font-weight: 600;
+  }
+  .btn.primary:hover { background: #d9bbff; }
+  .btn.ghost:hover { border-color: var(--mauve); color: var(--mauve); }
+
+  /* ---------- SECTIONS ---------- */
+  section { padding: 76px 0; }
+  section.alt { background: var(--mantle); }
+  .sec-head { max-width: 60ch; margin-bottom: 2.6rem; }
+  .sec-head h2 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(1.7rem, 4vw, 2.4rem);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  .sec-head p { margin-top: 0.9rem; color: var(--subtext); font-size: 1.02rem; }
+
+  /* about */
+  .about-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 3rem; align-items: start; }
+  @media (max-width: 760px) { .about-grid { grid-template-columns: 1fr; gap: 2rem; } }
+  .about-body p { color: var(--subtext); font-size: 1.08rem; margin-bottom: 1.1rem; }
+  .about-body p strong { color: var(--text); font-weight: 600; }
+  .about-body .highlight { color: var(--teal); font-weight: 500; }
+  .facts { border-left: 2px solid var(--line); padding-left: 1.4rem; }
+  .facts .row { margin-bottom: 1.15rem; }
+  .facts .k { font-family: var(--mono); font-size: 0.72rem; color: var(--overlay); text-transform: uppercase; letter-spacing: 0.08em; }
+  .facts .v { font-size: 0.98rem; margin-top: 0.15rem; }
+  .facts .v span { color: var(--mauve); }
+
+  /* projects */
+  .projects { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.1rem; }
+  @media (max-width: 760px) { .projects { grid-template-columns: 1fr; } }
+  .card {
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 1.6rem 1.6rem 1.5rem;
+    transition: transform .2s, border-color .2s, background .2s;
+    overflow: hidden;
+  }
+  .card::after {
+    content: "";
+    position: absolute; inset: 0;
+    border-radius: 12px;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(203,166,247,0.5), transparent 40%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude;
+    opacity: 0; transition: opacity .25s;
+    pointer-events: none;
+  }
+  .card:hover { transform: translateY(-4px); border-color: transparent; background: #282840; }
+  .card:hover::after { opacity: 1; }
+  .card .tag {
+    font-family: var(--mono); font-size: 0.7rem; font-weight: 500;
+    color: var(--teal);
+    text-transform: uppercase; letter-spacing: 0.06em;
+    display: inline-block;
+    margin-bottom: 0.9rem;
+  }
+  .card h3 {
+    font-family: var(--display); font-weight: 700;
+    font-size: 1.28rem; letter-spacing: -0.01em;
+    margin-bottom: 0.55rem;
+  }
+  .card p { color: var(--subtext); font-size: 0.95rem; }
+  .card .stack {
+    margin-top: 1.1rem; display: flex; flex-wrap: wrap; gap: 0.4rem;
+  }
+  .chip {
+    font-family: var(--mono); font-size: 0.7rem;
+    color: var(--overlay);
+    border: 1px solid var(--line);
+    border-radius: 5px; padding: 0.2rem 0.5rem;
+  }
+  .card .badge {
+    position: absolute; top: 1.3rem; right: 1.3rem;
+    font-family: var(--mono); font-size: 0.66rem;
+    color: var(--peach); border: 1px solid rgba(250,179,135,0.4);
+    border-radius: 20px; padding: 0.15rem 0.6rem;
+  }
+
+  /* stack */
+  .stack-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.4rem; }
+  @media (max-width: 760px) { .stack-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 440px) { .stack-grid { grid-template-columns: 1fr; } }
+  .stack-col h4 {
+    font-family: var(--mono); font-size: 0.74rem; color: var(--mauve);
+    text-transform: uppercase; letter-spacing: 0.08em;
+    margin-bottom: 0.9rem; padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .stack-col ul { list-style: none; }
+  .stack-col li {
+    font-size: 0.95rem; color: var(--subtext);
+    padding: 0.28rem 0; display: flex; align-items: center; gap: 0.55rem;
+  }
+  .stack-col li::before { content: "▹"; color: var(--overlay); font-size: 0.75rem; }
+
+  /* experience / timeline */
+  .xp { display: grid; gap: 0; }
+  .xp-item {
+    display: grid; grid-template-columns: 180px 1fr; gap: 1.6rem;
+    padding: 1.5rem 0; border-top: 1px solid var(--line);
+  }
+  .xp-item:last-child { border-bottom: 1px solid var(--line); }
+  @media (max-width: 640px) { .xp-item { grid-template-columns: 1fr; gap: 0.5rem; } }
+  .xp-when { font-family: var(--mono); font-size: 0.78rem; color: var(--overlay); padding-top: 0.2rem; }
+  .xp-role { font-family: var(--display); font-weight: 700; font-size: 1.18rem; }
+  .xp-org { color: var(--teal); font-size: 0.92rem; margin: 0.2rem 0 0.5rem; font-family: var(--mono); }
+  .xp-desc { color: var(--subtext); font-size: 0.96rem; }
+
+  /* contact */
+  .contact { text-align: center; padding: 96px 0; }
+  .contact h2 {
+    font-family: var(--display); font-weight: 800;
+    font-size: clamp(2rem, 6vw, 3.4rem); letter-spacing: -0.03em;
+    line-height: 1.05;
+  }
+  .contact h2 .accent { color: var(--mauve); }
+  .contact p { color: var(--subtext); margin: 1.2rem auto 0; max-width: 42ch; }
+  .contact-links { margin-top: 2.4rem; display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center; }
+
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 2rem 0;
+    background: var(--crust);
+  }
+  .foot-inner {
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+    font-family: var(--mono); font-size: 0.76rem; color: var(--overlay);
+  }
+  .foot-inner a:hover { color: var(--mauve); }
+
+  /* scroll reveal */
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+    .reveal { opacity: 1; transform: none; }
+  }
+
+  :focus-visible { outline: 2px solid var(--mauve); outline-offset: 3px; border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top">albert<span>.</span>kaskar</a>
+    <nav class="nav-links">
+      <a href="#about"><span class="p">~/</span>about</a>
+      <a href="#work"><span class="p">~/</span>work</a>
+      <a href="#stack"><span class="p">~/</span>stack</a>
+      <a href="#experience"><span class="p">~/</span>experience</a>
+      <a href="#contact"><span class="p">~/</span>contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">data analytics &amp; ai · full-stack</p>
+      <h1>Albert <span class="accent">Kaskar</span></h1>
+      <p class="lede">
+        I turn messy data and half-formed ideas into working software — from
+        <strong>machine-learning classifiers</strong> to
+        <strong>production web apps</strong>. Master of IT student, Computer Engineer, IEEE-published.
+      </p>
+
+      <div class="statusbar">
+        <div class="cell"><span class="dot"></span> Sydney, AU</div>
+        <div class="cell">Open to <b>2026 internships</b></div>
+        <div class="cell">Currently: <b>MITS @ UTAS</b></div>
+      </div>
+
+      <div class="cta-row">
+        <a class="btn primary" href="#work">View projects →</a>
+        
+        <a class="btn ghost" href="mailto:yeseerk@gmail.com">Email me</a>
+        
+        <a class="btn ghost" href="https://github.com/yeseerkaskar" target="_blank" rel="noopener">GitHub</a>
+        
+        <a class="btn ghost" href="https://linkedin.com/in/yeseerkaskar" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="alt">
+    <div class="wrap">
+      <p class="eyebrow">~/about</p>
+      <div class="about-grid">
+        <div class="about-body reveal">
+          <p>
+            I'm a <strong>Master of Information Technology &amp; Systems</strong> student at the
+            University of Tasmania, specialising in <span class="highlight">Data Analytics and AI</span>,
+            with a Computer Engineering degree and an IEEE paper behind me.
+          </p>
+          <p>
+            I like the whole pipeline — framing the problem, wrangling the data, training the
+            model, and shipping the interface people actually use. That means I'm as comfortable
+            comparing ML classifiers as I am building a Laravel app or a React dashboard.
+          </p>
+          <p>
+            Outside the code editor I facilitate <strong>peer study sessions</strong> for first-year
+            programming and sit on the ACS Emerging Professionals Committee — I like explaining hard
+            things simply and helping people get unstuck.
+          </p>
+        </div>
+        <div class="facts reveal">
+          <div class="row"><div class="k">Focus</div><div class="v">Data Analytics &amp; <span>AI</span></div></div>
+          <div class="row"><div class="k">Based in</div><div class="v">Sydney, Australia</div></div>
+          <div class="row"><div class="k">Studying</div><div class="v">MITS @ UTAS</div></div>
+          <div class="row"><div class="k">Published</div><div class="v">IEEE · <span>Computer Vision</span></div></div>
+          <div class="row"><div class="k">Speaks</div><div class="v">English · Hindi · Urdu · Arabic</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work">
+    <div class="wrap">
+      <p class="eyebrow">~/work</p>
+      <div class="sec-head">
+        <h2>Selected projects</h2>
+        <p>A cross-section of what I build — computer vision, machine learning, and full-stack web apps that ship.</p>
+      </div>
+
+      <div class="projects">
+
+        <article class="card reveal">
+          <span class="tag">AI / ML · Web</span>
+          <h3>Neural Trade India</h3>
+          <p>An AI-powered paper-trading simulator that lets users test strategies against market data without risking real money.</p>
+          <div class="stack">
+            <span class="chip">React</span><span class="chip">Express</span><span class="chip">Node.js</span>
+          </div>
+        </article>
+
+        <article class="card reveal">
+          <span class="badge">IEEE</span>
+          <span class="tag">Computer Vision</span>
+          <h3>Pothole Detection with YOLOv5</h3>
+          <p>A real-time road-defect detection system using object detection — published as an IEEE research paper.</p>
+          <div class="stack">
+            <span class="chip">Python</span><span class="chip">YOLOv5</span><span class="chip">PyTorch</span>
+          </div>
+        </article>
+
+        <article class="card reveal">
+          <span class="badge">In progress</span>
+          <span class="tag">Full-stack</span>
+          <h3>UTAS Student Support Portal</h3>
+          <p>A Laravel portal for student wellbeing — counselling callback requests, study-support forms, and a coordinator booking system, with a Filament admin panel.</p>
+          <div class="stack">
+            <span class="chip">Laravel</span><span class="chip">PHP</span><span class="chip">Filament</span>
+          </div>
+        </article>
+
+        <article class="card reveal">
+          <span class="tag">Machine Learning</span>
+          <h3>Lung Cancer Classification</h3>
+          <p>Compared eight ML models for lung-cancer classification, benchmarking accuracy and trade-offs across a clinical dataset.</p>
+          <div class="stack">
+            <span class="chip">Altair AI Studio</span><span class="chip">scikit-learn</span>
+          </div>
+        </article>
+
+        <article class="card reveal">
+          <span class="tag">HCI · Accessibility</span>
+          <h3>Hobart Events</h3>
+          <p>An accessibility-first events app taken end to end — personas and requirements through to a high-fidelity prototype and formal usability evaluation.</p>
+          <div class="stack">
+            <span class="chip">Figma</span><span class="chip">UX Research</span>
+          </div>
+        </article>
+
+        <article class="card reveal">
+          <span class="tag">Data Analysis</span>
+          <h3>Research &amp; Statistics</h3>
+          <p>Quantitative and qualitative research on generative AI in education — survey design, statistical analysis, and reporting.</p>
+          <div class="stack">
+            <span class="chip">JASP</span><span class="chip">Python</span><span class="chip">pandas</span>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- STACK -->
+  <section id="stack" class="alt">
+    <div class="wrap">
+      <p class="eyebrow">~/stack</p>
+      <div class="sec-head">
+        <h2>Tools I reach for</h2>
+      </div>
+      <div class="stack-grid">
+        <div class="stack-col reveal">
+          <h4>Languages</h4>
+          <ul>
+            <li>Python</li><li>JavaScript</li><li>PHP</li><li>Java</li><li>SQL</li><li>C++</li>
+          </ul>
+        </div>
+        <div class="stack-col reveal">
+          <h4>Web</h4>
+          <ul>
+            <li>React</li><li>Laravel</li><li>Express</li><li>Node.js</li><li>Filament</li><li>Tailwind</li>
+          </ul>
+        </div>
+        <div class="stack-col reveal">
+          <h4>Data &amp; AI</h4>
+          <ul>
+            <li>pandas</li><li>scikit-learn</li><li>PyTorch</li><li>YOLOv5</li><li>JASP</li><li>Altair AI Studio</li>
+          </ul>
+        </div>
+        <div class="stack-col reveal">
+          <h4>Tooling</h4>
+          <ul>
+            <li>Git &amp; GitHub</li><li>Linux / Bash</li><li>Figma</li><li>MySQL</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="wrap">
+      <p class="eyebrow">~/experience</p>
+      <div class="sec-head">
+        <h2>Experience &amp; involvement</h2>
+      </div>
+      <div class="xp">
+
+        <div class="xp-item reveal">
+          <div class="xp-when">2025 — now</div>
+          <div>
+            <div class="xp-role">PASS Facilitator</div>
+            <div class="xp-org">University of Tasmania · KIT101</div>
+            <div class="xp-desc">Lead Peer Assisted Study Sessions for first-year Programming Fundamentals, helping students build confidence with core coding concepts.</div>
+          </div>
+        </div>
+
+        <div class="xp-item reveal">
+          <div class="xp-when">2025 — now</div>
+          <div>
+            <div class="xp-role">Committee Member</div>
+            <div class="xp-org">ACS · Emerging Professionals</div>
+            <div class="xp-desc">Contribute to the Australian Computer Society's Emerging Professionals Committee, supporting early-career members in tech.</div>
+          </div>
+        </div>
+
+        <div class="xp-item reveal">
+          <div class="xp-when">Virtual</div>
+          <div>
+            <div class="xp-role">Job Simulations</div>
+            <div class="xp-org">Accenture · Commonwealth Bank</div>
+            <div class="xp-desc">Completed Forage virtual experience programs in technology and software engineering with Accenture and CommBank.</div>
+          </div>
+        </div>
+
+        <div class="xp-item reveal">
+          <div class="xp-when">Education</div>
+          <div>
+            <div class="xp-role">Master of IT &amp; Systems</div>
+            <div class="xp-org">University of Tasmania · Data Analytics &amp; AI</div>
+            <div class="xp-desc">Currently studying at the Sydney campus. Prior: B.E. Computer Engineering, Ramrao Adik Institute of Technology (CGPA 8.75/10).</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="alt contact">
+    <div class="wrap">
+      <p class="eyebrow" style="justify-content:center;">~/contact</p>
+      <h2>Let's build something<br /><span class="accent">worth shipping.</span></h2>
+      <p>Open to internships and graduate roles in data analytics, AI, and software engineering. The inbox is always open.</p>
+      <div class="contact-links">
+        <!-- EDIT: replace with your email -->
+        <a class="btn primary" href="mailto:your.email@example.com">Say hello →</a>
+        <!-- EDIT: replace YOUR-GITHUB -->
+        <a class="btn ghost" href="https://github.com/YOUR-GITHUB" target="_blank" rel="noopener">GitHub</a>
+        <!-- EDIT: replace YOUR-LINKEDIN -->
+        <a class="btn ghost" href="https://linkedin.com/in/YOUR-LINKEDIN" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-inner">
+    <span>© <span id="year"></span> Albert Kaskar — built &amp; deployed on GitHub Pages</span>
+    <span>Sydney, AU · <span style="color:var(--teal)">available</span></span>
+  </div>
+</footer>
+
+<script>
+  // year
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // nav border on scroll
+  const nav = document.querySelector("header.nav");
+  const onScroll = () => nav.classList.toggle("scrolled", window.scrollY > 12);
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  // scroll reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll(".reveal").forEach((el, i) => {
+    el.style.transitionDelay = (i % 4) * 60 + "ms";
+    io.observe(el);
+  });
+</script>
+</body>
+</html>
